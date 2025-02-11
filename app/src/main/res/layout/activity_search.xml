@@ -45,6 +45,6 @@ limitations under the License. -->
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:textSize="18dp"
-        android:text="TextView" />
+        android:text="" />
 
 </LinearLayout>

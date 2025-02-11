@@ -159,8 +159,8 @@ public class WordListOpenHelper extends SQLiteOpenHelper {
             // Obtener la base de datos en modo lectura (si no está ya obtenida)
 
 
-            if (mReadable== null) {
-                mReadable = getReadableDatabase();  // Obtén la base de datos si no estaba disponible
+            if (mReadableDB== null) {
+                mReadableDB = getReadableDatabase();  // Obtén la base de datos si no estaba disponible
             }
 
             // Definir las columnas que necesitamos
@@ -173,7 +173,7 @@ public class WordListOpenHelper extends SQLiteOpenHelper {
             String selection = WordListOpenHelper.KEY_WORD + " LIKE ?";
 
             // Realizar la consulta usando parámetros para evitar inyección SQL
-            cursor = db.query(WordListOpenHelper.WORD_LIST_TABLE, // Nombre de la tabla
+            cursor = mReadableDB.query(WordListOpenHelper.WORD_LIST_TABLE, // Nombre de la tabla
                     columns,                           // Columnas que necesitamos
                     selection,                         // Cláusula WHERE
                     new String[]{searchString},        // Parámetro para LIKE

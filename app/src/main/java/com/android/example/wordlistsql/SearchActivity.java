@@ -26,28 +26,30 @@ public class SearchActivity extends AppCompatActivity {
         mDB = new WordListOpenHelper(this);
     }
 
-    public void showResult(View view){
+    public void showResult(View view) {
         String word = mEditWordView.getText().toString();
         mTextView.setText("Result for " + word + ":\n\n");
-// Search for the word in the database.
+
+        // Search for the word in the database.
         Cursor cursor = mDB.search(word);
-// Only process a non-null cursor with rows.
-        if (cursor != null & cursor.getCount() > 0) {
-// You must move the cursor to the first item.
+
+        // Only process a non-null cursor with rows.
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             int index;
             String result;
-// Iterate over the cursor, while there are entries.
+
+            // Iterate over the cursor, while there are entries.
             do {
-// Don't guess at the column index.
-// Get the index for the named column.
                 index = cursor.getColumnIndex(WordListOpenHelper.KEY_WORD);
-// Get the value from the column for the current cursor.
                 result = cursor.getString(index);
-// Add result to what's already in the text view.
                 mTextView.append(result + "\n");
-            } while (cursor.moveToNext()); // Returns true or false
+            } while (cursor.moveToNext());
+
             cursor.close();
-        } // You should add some handling of null case. Right now, nothing happens.
+        } else {
+            // Add handling for no results found
+            mTextView.append("No matches found");
+        }
     }
 }
